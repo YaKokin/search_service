@@ -10,6 +10,7 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import school.faang.searchservice.builder.SearchQueryBuilder;
 import school.faang.searchservice.dto.user.AbstractSearchRequest;
 import school.faang.searchservice.exception.SearchServiceExceptions;
 import school.faang.searchservice.model.BaseDocument;
@@ -58,10 +59,10 @@ public abstract class AbstractSearchService<DOC extends BaseDocument, REQ extend
     }
 
     public List<DOC> searchResources(String sessionId,
-                                 REQ request,
-                                 Pageable pageable,
-                                 SearchQueryBuilder queryBuilder,
-                                 Class<DOC> docType) {
+                                     REQ request,
+                                     Pageable pageable,
+                                     SearchQueryBuilder queryBuilder,
+                                     Class<DOC> docType) {
 
         List<Long> viewedUserIds = sessionResourceService.getViewedResources(sessionId);
 
@@ -102,7 +103,7 @@ public abstract class AbstractSearchService<DOC extends BaseDocument, REQ extend
                     .map(Hit::source)
                     .toList();
         } catch (IOException e) {
-            throw new SearchServiceExceptions(e);
+            throw new SearchServiceExceptions(e, docType);
         }
     }
 }

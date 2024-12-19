@@ -7,6 +7,4 @@ public interface ResourcePromotionService<DOC, REQ> {
     List<DOC> getPromotedResources(Integer requiredPromotionsCount,
                                    String sessionId,
                                    REQ userSearchRequest);
-
-    Class<DOC> getDocType();
 }

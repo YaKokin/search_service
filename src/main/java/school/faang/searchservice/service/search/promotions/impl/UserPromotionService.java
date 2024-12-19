@@ -26,9 +26,4 @@ public class UserPromotionService implements ResourcePromotionService<UserDocume
 
         return userDocumentRepository.findAllByUserIdIn(promotedUserIds);
     }
-
-    @Override
-    public Class<UserDocument> getDocType() {
-        return UserDocument.class;
-    }
 }

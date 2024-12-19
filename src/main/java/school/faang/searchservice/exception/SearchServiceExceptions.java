@@ -2,9 +2,9 @@ package school.faang.searchservice.exception;
 
 public class SearchServiceExceptions extends RuntimeException {
 
-    private static final String SEARCHING_USERS_ERROR = "Error while searching users";
+    private static final String SEARCHING_ERROR = "Search error for doc %s";
 
-    public SearchServiceExceptions(Throwable cause) {
-        super(SEARCHING_USERS_ERROR, cause);
+    public SearchServiceExceptions(Throwable cause, Class<?> docType) {
+        super(String.format(SEARCHING_ERROR, docType), cause);
     }
 }

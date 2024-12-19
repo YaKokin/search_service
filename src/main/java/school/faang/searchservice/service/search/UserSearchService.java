@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import school.faang.searchservice.builder.SearchQueryBuilder;
 import school.faang.searchservice.dto.user.UserAbstractSearchRequest;
 import school.faang.searchservice.dto.user.UserSearchResponse;
 import school.faang.searchservice.mapper.UserMapper;
