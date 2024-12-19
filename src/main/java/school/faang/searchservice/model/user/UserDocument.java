@@ -2,13 +2,14 @@ package school.faang.searchservice.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.InnerField;
 import org.springframework.data.elasticsearch.annotations.MultiField;
 import org.springframework.data.elasticsearch.annotations.Setting;
+import school.faang.searchservice.model.BaseDocument;
 
 import java.util.List;
 
@@ -16,10 +17,8 @@ import java.util.List;
 @Document(indexName = "user_indexing_topic")
 @Setting(settingPath = "elasticsearch/settings.json")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDocument {
-
-    @Id
-    private Long userId;
+@EqualsAndHashCode(callSuper = true)
+public class UserDocument extends BaseDocument {
 
     @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "standard"),
             otherFields = {

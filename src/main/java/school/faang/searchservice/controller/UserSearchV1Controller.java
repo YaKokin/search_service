@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import school.faang.searchservice.dto.user.UserSearchRequest;
+import school.faang.searchservice.dto.user.UserAbstractSearchRequest;
 import school.faang.searchservice.dto.user.UserSearchResponse;
 import school.faang.searchservice.exception.DataValidationException;
 import school.faang.searchservice.model.user.UserDocument;
 import school.faang.searchservice.rpeository.UserDocumentRepository;
-import school.faang.searchservice.service.search.SearchUserService;
+import school.faang.searchservice.service.search.UserSearchService;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ import java.util.List;
 @Slf4j
 public class UserSearchV1Controller {
 
-    private final SearchUserService searchUserService;
+    private final UserSearchService userSearchService;
     private final UserDocumentRepository userDocumentRepository;
 
     private static final int DEFAULT_PAGE_SIZE = 20;
@@ -42,7 +42,7 @@ public class UserSearchV1Controller {
     @ResponseStatus(HttpStatus.OK)
     public Page<UserSearchResponse> searchUsers(
             @RequestParam @NotBlank String sessionId,
-            @RequestBody @Validated UserSearchRequest userSearchRequest,
+            @RequestBody @Validated UserAbstractSearchRequest userSearchRequest,
 
             @PageableDefault(
                     size = DEFAULT_PAGE_SIZE,
@@ -54,7 +54,7 @@ public class UserSearchV1Controller {
     ) {
         log.info("Received search request:");
         validateRequest(userSearchRequest);
-        return searchUserService.searchUsers(sessionId, userSearchRequest, pageable);
+        return userSearchService.searchUsers(sessionId, userSearchRequest, pageable);
     }
 
     @GetMapping("/test")
@@ -63,7 +63,7 @@ public class UserSearchV1Controller {
         return List.of(docs.iterator().next());
     }
 
-    private static void validateRequest(UserSearchRequest userSearchRequest) {
+    private static void validateRequest(UserAbstractSearchRequest userSearchRequest) {
         if (!userSearchRequest.expBoundsIsNotNull()) {
             throw new DataValidationException("experience bounds not be null");
         }

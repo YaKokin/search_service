@@ -11,7 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import school.faang.searchservice.client.PromotionClient;
-import school.faang.searchservice.dto.user.UserSearchRequest;
+import school.faang.searchservice.dto.user.UserAbstractSearchRequest;
 import school.faang.searchservice.dto.user.UserSearchResponse;
 import school.faang.searchservice.exception.SearchServiceExceptions;
 import school.faang.searchservice.mapper.UserMapper;
@@ -42,7 +42,7 @@ public class SearchUserService {
     private final SessionResourceService sessionResourceService;
     private final UserMapper userMapper;
 
-    public Page<UserSearchResponse> searchUsers(String sessionId, UserSearchRequest userSearchRequest,
+    public Page<UserSearchResponse> searchUsers(String sessionId, UserAbstractSearchRequest userSearchRequest,
                                                 Pageable pageable) {
 
         //получение просмотренных
@@ -83,7 +83,7 @@ public class SearchUserService {
 
     private List<UserDocument> getPromotedUsers(Integer requiredPromotionsCount,
                                                 String sessionId,
-                                                UserSearchRequest userSearchRequest) {
+                                                UserAbstractSearchRequest userSearchRequest) {
 
         List<Long> promotedUserIds =
                 promotionClient.searchPromotedUsers(requiredPromotionsCount, sessionId, userSearchRequest);
@@ -91,7 +91,7 @@ public class SearchUserService {
         return userDocumentRepository.findAllByUserIdIn(promotedUserIds);
     }
 
-    private List<UserDocument> searchUsersByFilter(UserSearchRequest searchRequest,
+    private List<UserDocument> searchUsersByFilter(UserAbstractSearchRequest searchRequest,
                                                    List<Long> excludedUsersIds,
                                                    Integer maxResults,
                                                    Pageable pageable) {
