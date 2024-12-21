@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import school.faang.searchservice.config.feign.client.FeignConfig;
-import school.faang.searchservice.dto.user.UserAbstractSearchRequest;
+import school.faang.searchservice.dto.user.UserSearchRequest;
 
 import java.util.List;
 
@@ -23,6 +23,6 @@ public interface PromotionClient {
     List<Long> searchPromotedUsers(
             @RequestParam("requiredResCount") @Positive Integer requiredResCount,
             @RequestParam("sessionId") @NotBlank String sessionId,
-            @RequestBody @Validated UserAbstractSearchRequest userSearchRequest
+            @RequestBody @Validated UserSearchRequest userSearchRequest
     );
 }

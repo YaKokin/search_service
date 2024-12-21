@@ -12,5 +12,5 @@ import org.springframework.data.annotation.Id;
 @MappedSuperclass
 public class BaseDocument {
     @Id
-    private Long resourceId;
+    protected Long resourceId;
 }

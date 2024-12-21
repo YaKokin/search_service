@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @RequiredArgsConstructor
-public class UserAbstractSearchRequest extends AbstractSearchRequest {
+public class UserSearchRequest {
 
     private String query;
     private List<String> skillNames;

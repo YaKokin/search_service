@@ -9,9 +9,9 @@ import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import school.faang.searchservice.builder.SearchQueryBuilder;
-import school.faang.searchservice.dto.user.AbstractSearchRequest;
 import school.faang.searchservice.exception.SearchServiceExceptions;
 import school.faang.searchservice.model.BaseDocument;
 import school.faang.searchservice.service.cache.SessionResourceService;
@@ -24,10 +24,10 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
-public abstract class AbstractSearchService<DOC extends BaseDocument, REQ extends AbstractSearchRequest> {
+public abstract class AbstractSearchService<DOC extends BaseDocument, REQ> {
 
-    private static final double SHARE_OF_PROMOTIONS = 0.4;
-    private static final String USERS_INDEX = "user_indexing_topic";
+    @Value("${promotion.share}")
+    private double shareOfPromotions;
 
     private final ElasticsearchClient elasticsearchClient;
     private final SessionResourceService<DOC> sessionResourceService;
@@ -66,7 +66,7 @@ public abstract class AbstractSearchService<DOC extends BaseDocument, REQ extend
 
         List<Long> viewedUserIds = sessionResourceService.getViewedResources(sessionId);
 
-        Integer requiredPromotionsCount = (int) Math.floor(pageable.getPageSize() * SHARE_OF_PROMOTIONS);
+        Integer requiredPromotionsCount = (int) Math.floor(pageable.getPageSize() * shareOfPromotions);
         List<DOC> promotedUserDocs =
                 resourcePromotionService.getPromotedResources(requiredPromotionsCount, sessionId, request);
 

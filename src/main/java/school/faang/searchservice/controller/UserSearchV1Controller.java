@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import school.faang.searchservice.dto.user.UserAbstractSearchRequest;
+import school.faang.searchservice.dto.user.UserSearchRequest;
 import school.faang.searchservice.dto.user.UserSearchResponse;
 import school.faang.searchservice.exception.DataValidationException;
 import school.faang.searchservice.model.user.UserDocument;
@@ -42,7 +42,7 @@ public class UserSearchV1Controller {
     @ResponseStatus(HttpStatus.OK)
     public Page<UserSearchResponse> searchUsers(
             @RequestParam @NotBlank String sessionId,
-            @RequestBody @Validated UserAbstractSearchRequest userSearchRequest,
+            @RequestBody @Validated UserSearchRequest userSearchRequest,
 
             @PageableDefault(
                     size = DEFAULT_PAGE_SIZE,
@@ -63,7 +63,7 @@ public class UserSearchV1Controller {
         return List.of(docs.iterator().next());
     }
 
-    private static void validateRequest(UserAbstractSearchRequest userSearchRequest) {
+    private static void validateRequest(UserSearchRequest userSearchRequest) {
         if (!userSearchRequest.expBoundsIsNotNull()) {
             throw new DataValidationException("experience bounds not be null");
         }
