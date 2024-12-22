@@ -1,8 +1,11 @@
 package school.faang.searchservice.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -18,6 +21,8 @@ import java.util.List;
 @Setting(settingPath = "elasticsearch/settings.json")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@ToString(callSuper = true)
 public class UserDocument extends BaseDocument {
 
     @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "standard"),

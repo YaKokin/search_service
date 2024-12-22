@@ -23,7 +23,7 @@ import java.util.List;
 public class UserSearchService extends AbstractSearchService<UserDocument, UserSearchRequest> {
 
     @Value("${spring.elasticsearch.indexes.user_search.name}")
-    private String user_search_index;
+    private String userSearchIndex;
 
     private final UserMapper userMapper;
 
@@ -40,7 +40,7 @@ public class UserSearchService extends AbstractSearchService<UserDocument, UserS
                                                 Pageable pageable) {
         int from = pageable.getPageNumber() * pageable.getPageSize();
         SearchQueryBuilder queryBuilder = new SearchQueryBuilder()
-                .indexName(user_search_index)
+                .indexName(userSearchIndex)
                 .from(from)
                 .addFilter(new TextMatchFilter(request.getQuery()))
                 .addFilter(new SkillFuzzyFilter(request.getSkillNames()))
