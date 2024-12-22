@@ -1,9 +1,11 @@
 package school.faang.searchservice.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -23,6 +25,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @ToString(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDocument extends BaseDocument {
 
     @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "standard"),

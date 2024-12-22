@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import school.faang.searchservice.dto.user.UserSearchRequest;
 import school.faang.searchservice.dto.user.UserSearchResponse;
 import school.faang.searchservice.exception.DataValidationException;
-import school.faang.searchservice.model.user.UserDocument;
-import school.faang.searchservice.rpeository.UserDocumentRepository;
 import school.faang.searchservice.service.search.UserSearchService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/search/users")
@@ -33,7 +28,6 @@ import java.util.List;
 public class UserSearchV1Controller {
 
     private final UserSearchService userSearchService;
-    private final UserDocumentRepository userDocumentRepository;
 
     private static final int DEFAULT_PAGE_SIZE = 20;
     private static final String DEFAULT_SORT_FIELD = "averageRating";
@@ -55,12 +49,6 @@ public class UserSearchV1Controller {
         log.info("Received search request:");
         validateRequest(userSearchRequest);
         return userSearchService.searchUsers(sessionId, userSearchRequest, pageable);
-    }
-
-    @GetMapping("/test")
-    public List<UserDocument> test() {
-        Iterable<UserDocument> docs = userDocumentRepository.findAll();
-        return List.of(docs.iterator().next());
     }
 
     private static void validateRequest(UserSearchRequest userSearchRequest) {
