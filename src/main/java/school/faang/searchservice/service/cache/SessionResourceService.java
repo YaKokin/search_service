@@ -2,19 +2,20 @@ package school.faang.searchservice.service.cache;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+import school.faang.searchservice.model.BaseDocument;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Service
 @RequiredArgsConstructor
-public class SessionResourceService {
+public abstract class SessionResourceService<DOC extends BaseDocument> {
 
     private final RedisTemplate<String, Long> redisTemplate;
 
     private static final String KEY_PREFIX = "session";
+
+    private final String resourcePrefix;
 
     public List<Long> getViewedResources(String sessionId) {
         String key = toKey(sessionId);
@@ -29,6 +30,6 @@ public class SessionResourceService {
     }
 
     private String toKey(String sessionId) {
-        return String.format("%s:%s", KEY_PREFIX, sessionId);
+        return String.format("%s:%s:%s", KEY_PREFIX, resourcePrefix, sessionId);
     }
 }

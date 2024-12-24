@@ -6,5 +6,5 @@ import school.faang.searchservice.model.user.UserDocument;
 import java.util.List;
 
 public interface UserDocumentRepository extends ElasticsearchRepository<UserDocument, Long> {
-    List<UserDocument> findAllByUserIdIn(List<Long> promotedResourceIds);
+    List<UserDocument> findAllByResourceIdIn(List<Long> promotedResourceIds);
 }

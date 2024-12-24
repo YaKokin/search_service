@@ -1,0 +1,42 @@
+spring:
+  data:
+    redis:
+      port: 6379
+      host: localhost
+      channels:
+        mentorship-channel:
+          name: mentorship_channel
+        follower-event-channel:
+          name: follower_event
+      database: 0
+  elasticsearch:
+    uris: http://localhost:9200
+    indexes:
+      user_search:
+        name: user_indexing_topic
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+promotion:
+  share: 0.4
+
+server:
+  port: 8087
+
+logging:
+  level:
+    root: info
+
+project-service:
+  host: localhost
+  port: 8082
+
+payment-service:
+  host: localhost
+  port: 9080
+
+promotion-service:
+  service:
+    url: http://localhost:8081
+

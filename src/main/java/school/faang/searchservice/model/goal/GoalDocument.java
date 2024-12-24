@@ -1,11 +1,12 @@
 package school.faang.searchservice.model.goal;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Setting;
+import school.faang.searchservice.model.BaseDocument;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,10 +14,8 @@ import java.util.List;
 @Data
 @Document(indexName = "goals")
 @Setting(settingPath = "elasticsearch/settings.json")
-public class GoalDocument {
-
-    @Id
-    private Long goalId;
+@EqualsAndHashCode(callSuper = true)
+public class GoalDocument extends BaseDocument {
 
     @Field(type = FieldType.Text)
     private String title;

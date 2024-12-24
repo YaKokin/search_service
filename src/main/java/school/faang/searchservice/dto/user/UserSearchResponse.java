@@ -1,10 +1,12 @@
 package school.faang.searchservice.dto.user;
 
+import lombok.Builder;
 import school.faang.searchservice.dto.event.EventSearchResponse;
 import school.faang.searchservice.dto.goal.GoalSearchResponse;
 
 import java.util.List;
 
+@Builder
 public record UserSearchResponse(
         Long userId,
         String username,

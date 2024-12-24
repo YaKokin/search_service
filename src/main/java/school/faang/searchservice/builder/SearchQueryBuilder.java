@@ -1,4 +1,4 @@
-package school.faang.searchservice.service.search;
+package school.faang.searchservice.builder;
 
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;

@@ -1,21 +1,20 @@
 package school.faang.searchservice.model.event;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Setting;
+import school.faang.searchservice.model.BaseDocument;
 
 import java.time.LocalDateTime;
 
 @Data
 @Document(indexName = "events")
 @Setting(settingPath = "elasticsearch/settings.json")
-public class EventDocument {
-
-    @Id
-    private Long id;
+@EqualsAndHashCode(callSuper = true)
+public class EventDocument extends BaseDocument {
 
     @Field(type = FieldType.Text)
     private String tittle;
